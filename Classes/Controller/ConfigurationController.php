@@ -88,7 +88,7 @@ class ConfigurationController
         if (!empty($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$this->expertKey])) {
             // Automatically migrate configuration from v1.8
             $config = $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$this->expertKey];
-            $config = unserialize($config);
+            $config = unserialize($config, ['allowed_classes' => false]);
             if (is_array($config) && !empty($config) && $this->persistConfiguration($config)) {
                 // Drop legacy configuration
                 $this->writeToLocalconf($this->expertKey, []);
